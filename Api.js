@@ -19,6 +19,16 @@ API.getClosestStops = function(position, searchRadie){
         // done-handler
         console.log("SVAR!");
         console.log(data);
+        // Skapar Busstops av returdatan och lägger dem i BusstopList
+        var stopList = new BusstopList();
+        for(var i = 0; i < data.StopLocation.length; i++){
+            var stop = data.StopLocation[i];
+            var busstop = new Busstop(stop.id, stop.name, stop.lat, stop.lon, stop.dist);
+            stopList.add(busstop);
+        }
+
+        console.log(stopList);
+
     }).fail(function(ajaxObj, status){
         // fail-handler
         console.log("AJAX MISSLYCKADES");
