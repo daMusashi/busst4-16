@@ -29,6 +29,8 @@ API.getClosestStops = function(position, searchRadie){
 
         console.log(stopList);
 
+        $("body").append(DOMgenerator.getBusstopListDom("Närmaste hållplatser", stopList));
+
     }).fail(function(ajaxObj, status){
         // fail-handler
         console.log("AJAX MISSLYCKADES");
