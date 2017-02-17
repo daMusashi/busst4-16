@@ -29,7 +29,7 @@ API.getClosestStops = function(position, searchRadie){
 
         console.log(stopList);
 
-        $("body").append(DOMgenerator.getBusstopListDom("Närmaste hållplatser", stopList));
+        $("#list").append(DOMgenerator.getBusstopListDom("Hållplatser inom 1km", stopList));
 
     }).fail(function(ajaxObj, status){
         // fail-handler
