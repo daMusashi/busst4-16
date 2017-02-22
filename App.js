@@ -17,5 +17,8 @@ App.start = function(userPosition){
 
     API.getClosestStops(this.userPosition);
 
+    // Testar anrop 2 - få avgångar för h¨ållplats
+    API.getDeparturesForStop("740057624");
+
     console.log(this.userPosition);
 }

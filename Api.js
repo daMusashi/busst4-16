@@ -5,8 +5,8 @@ function API(){}
  * Metod som använder Trafiklab.se API för att hämta de närmaste busshållplatserna
  * se https://www.trafiklab.se/api/resrobot-reseplanerare/resrobot-reseplanerare-narliggande-hallplatser
  *
- * @param position Position - Postionsobjektet för användarens plats
- * @param searchRadie int - OPTIONAL sökradie i meter
+ * @param {Position} position - Postionsobjektet för användarens plats
+ * @param {number} searchRadie - OPTIONAL sökradie i meter
  */
 API.getClosestStops = function(position, searchRadie){
     var key = "fa6e9a49-788e-4951-940e-9584e6a05458";
@@ -17,7 +17,7 @@ API.getClosestStops = function(position, searchRadie){
 
     $.get(apiUrl+"?key="+key+"&originCoordLat="+lat+"&originCoordLong="+long+"&format=json&r="+radie, function(data, status){
         // done-handler
-        console.log("SVAR!");
+        console.log("SVAR! (closestStops)");
         console.log(data);
         // Skapar Busstops av returdatan och lägger dem i BusstopList
         var stopList = new BusstopList();
@@ -37,3 +37,26 @@ API.getClosestStops = function(position, searchRadie){
         console.log("Fel:"+status);
     });
 };
+
+/**
+ * Metod som använder Trafiklab.se API för att hämta avgångar för en hållplats (stop)
+ * se https://www.trafiklab.se/api/resrobot-stolptidtabeller-2/resrobot-stolptidtabeller-2-avgaende-trafik
+ *
+ * @param {string} stopId - Hållplatsen id i API:et (fås i API.getCLosestStops())
+ */
+API.getDeparturesForStop = function(stopId){
+    var key = "0278ec1d-13aa-4e94-b621-4a546feb8b25";
+    var apiUrl = "https://api.resrobot.se/v2/departureBoard";
+
+    $.get(apiUrl+"?key="+key+"&id="+stopId+"&maxJourneys=6&format=json", function(data, status){
+        // done-handler
+        console.log("SVAR!(departures)");
+        console.log(data);
+
+    }).fail(function(ajaxObj, status){
+        // fail-handler
+        console.log("AJAX MISSLYCKADES");
+        console.log("Fel:"+status);
+    });
+};
+
